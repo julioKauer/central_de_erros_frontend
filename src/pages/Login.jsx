@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './style.css';
 
+// const axios = require('axios');
+// const qs = require('qs');
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,10 +29,33 @@ function Login() {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://localhost:8080/oauth/token', requestOptions)
+    fetch('https://cors-anywhere.herokuapp.com/https://projeto-erros.herokuapp.com/oauth/token', requestOptions)
       .then((response) => response.text())
       .then((result) => console.log('Resultado: ', result))
       .catch((error) => console.log('error', error));
+
+    // const data = qs.stringify({
+    //   grant_type: 'password',
+    //   username: email,
+    //   password,
+    // });
+    // const config = {
+    //   method: 'post',
+    //   url: 'localhost:8080/oauth/token',
+    //   headers: {
+    //     Authorization: 'Basic dXNlcjoxMjM=',
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //   },
+    //   data,
+    // };
+
+    // axios(config)
+    //   .then((response) => {
+    //     console.log(JSON.stringify(response.data));
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
   return (
