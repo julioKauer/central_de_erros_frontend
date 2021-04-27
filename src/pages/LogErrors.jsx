@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import SelectLevel from '../components/SelectLevel';
+import ErrorsTable from '../components/ErrorsTable';
 import './style.css';
 
 // const url = 'https://cors-anywhere.herokuapp.com/https://projeto-erros.herokuapp.com/';
@@ -43,7 +44,7 @@ function LogErrors() {
         path = `/search/description/${text}`;
         break;
       case 'date':
-        path = `/search/date/${text}`;
+        path = `/search/date/${date}`;
         break;
       default:
         break;
@@ -82,16 +83,12 @@ function LogErrors() {
         <Button onClick={Search}>
           Pesquisar
         </Button>
-        {level}
-        <br />
-        {date}
-        <br />
-        {text}
         <br />
         Quantidade:
         {' '}
         {quantity}
         <br />
+        <ErrorsTable arrayErrors={errorList} />
       </Form>
     </main>
   );
