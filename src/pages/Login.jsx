@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import './style.css';
 
+// const url = 'https://cors-anywhere.herokuapp.com/https://projeto-erros.herokuapp.com/';
+const url = 'http://localhost:8080/oauth/token';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,7 +29,7 @@ function Login() {
       redirect: 'follow',
     };
 
-    fetch('https://cors-anywhere.herokuapp.com/https://projeto-erros.herokuapp.com/oauth/token', requestOptions)
+    fetch(url, requestOptions)
       .then((response) => response.json())
       .then((result) => localStorage.setItem('token', result.access_token))
       .catch(() => alert('Servidor não encontrado'));
