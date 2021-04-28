@@ -4,7 +4,8 @@ import { Form, Button } from 'react-bootstrap';
 import './style.css';
 
 // const url = 'https://cors-anywhere.herokuapp.com/https://projeto-erros.herokuapp.com/';
-const url = 'http://localhost:8080/oauth/token';
+const url = 'https://projeto-erros.herokuapp.com/oauth/token';
+// const url = 'http://localhost:8080/oauth/token';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import SelectLevel from '../components/SelectLevel';
 import ErrorsTable from '../components/ErrorsTable';
 import './style.css';
 
 // const url = 'https://cors-anywhere.herokuapp.com/https://projeto-erros.herokuapp.com/';
-// const url = 'https://projeto-erros.herokuapp.com/';
-const url = 'http://localhost:8080/';
+const url = 'https://projeto-erros.herokuapp.com/';
+// const url = 'http://localhost:8080/';
 
 function LogErrors() {
   const [searchBy, setSearchBy] = useState('all');
@@ -15,10 +15,6 @@ function LogErrors() {
   const [text, setText] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [errorList, setErrorList] = useState([]);
-
-  useEffect(() => {
-    console.log(errorList);
-  }, [errorList]);
 
   const Search = () => {
     const token = localStorage.getItem('token');
@@ -52,13 +48,16 @@ function LogErrors() {
 
     //    fetch(`${url}errors${path}?page=0&size=3&sort=level,id`, requestOptions)
     fetch(`${url}errors${path}`, requestOptions)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 404) throw new Error('Não encontrado');
+        return response.json();
+      })
       .then((result) => {
         const { quantity: quant, list } = result;
         setQuantity(quant);
-        setErrorList(list);
+        if (list) setErrorList(list);
       })
-      .catch((error) => console.log('error', error));
+      .catch((error) => alert(error.message));
   };
 
   return (
@@ -78,9 +77,9 @@ function LogErrors() {
           </select>
         </Form.Group>
         {searchBy === 'level' && <SelectLevel level={level} setLevel={setLevel} /> }
-        {searchBy === 'date' && <input type="date" onChange={({ target: { value } }) => setDate(value)} /> }
+        {searchBy === 'date' && <input type="date" value={date} onChange={({ target: { value } }) => setDate(value)} /> }
         {(searchBy === 'description' || searchBy === 'origin') && <input type="text" onChange={({ target: { value } }) => setText(value)} /> }
-        <Button onClick={Search}>
+        <Button onClick={() => Search()}>
           Pesquisar
         </Button>
         <br />
