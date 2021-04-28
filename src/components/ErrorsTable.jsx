@@ -9,10 +9,10 @@ function ErrorsTable(props) {
       <thead>
         <tr>
           <th>Id</th>
-          <th>Level</th>
-          <th>Description</th>
-          <th>Origin</th>
-          <th>Date</th>
+          <th>Nível de erro</th>
+          <th>Descrição</th>
+          <th>Origem</th>
+          <th>Data</th>
         </tr>
       </thead>
       <tbody>
