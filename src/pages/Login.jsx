@@ -31,10 +31,15 @@ function Login() {
     };
 
     fetch(url, requestOptions)
-      .then((response) => response.json())
-      .then((result) => localStorage.setItem('token', result.access_token))
-      .catch(() => alert('Servidor não encontrado'));
-    history.push('/logerrors');
+      .then((response) => {
+        if (response.status === 401) throw new Error('Usuário ou senha inválido');
+        return response.json();
+      })
+      .then((result) => {
+        localStorage.setItem('token', result.access_token);
+        history.push('/logerrors');
+      })
+      .catch((error) => alert(error.message));
   };
 
   return (

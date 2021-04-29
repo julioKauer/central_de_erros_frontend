@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import SelectLevel from '../components/SelectLevel';
 import ErrorsTable from '../components/ErrorsTable';
@@ -18,8 +18,9 @@ function LogErrors() {
   const [sortBy, setSortBy] = useState('date');
   const [size, setSize] = useState(3);
   const [ascDesc, setAscDesc] = useState('desc');
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const Search = () => {
+  const search = (fetchPage) => {
     const token = localStorage.getItem('token');
     const myHeaders = new Headers();
     myHeaders.append('Authorization', `Bearer ${token}`);
@@ -49,8 +50,7 @@ function LogErrors() {
         break;
     }
 
-    //    fetch(`${url}errors${path}?page=0&size=3&sort=level,id`, requestOptions)
-    fetch(`${url}errors${path}?sort=${sortBy},${ascDesc}&page=0&size=${size}`, requestOptions)
+    fetch(`${url}errors${path}?sort=${sortBy},${ascDesc}&page=${fetchPage}&size=${size}`, requestOptions)
       .then((response) => {
         if (response.status === 404) throw new Error('Não encontrado');
         return response.json();
@@ -61,6 +61,35 @@ function LogErrors() {
         if (list) setErrorList(list);
       })
       .catch((error) => alert(error.message));
+  };
+
+  useEffect(() => {
+    search(currentPage);
+  }, [currentPage]);
+
+  /*
+  const [searchBy, setSearchBy] = useState('all');
+  const [level, setLevel] = useState('ERROR');
+  const [date, setDate] = useState('');
+  const [text, setText] = useState('');
+  const [quantity, setQuantity] = useState(0);
+  const [errorList, setErrorList] = useState([]);
+  const [sortBy, setSortBy] = useState('date');
+  const [size, setSize] = useState(3);
+  const [ascDesc, setAscDesc] = useState('desc'); */
+
+  const existNextPage = () => {
+    const lastPage = Math.ceil(quantity / size) - 1;
+    if (currentPage < lastPage) return true;
+    return false;
+  };
+
+  const handleNext = () => {
+    if (existNextPage()) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevious = () => {
+    if (currentPage > 0) setCurrentPage(currentPage - 1);
   };
 
   return (
@@ -122,7 +151,7 @@ function LogErrors() {
             <option value="desc">Decrescente</option>
           </select>
         </Form.Group>
-        <Button onClick={Search}>
+        <Button onClick={() => search(0)}>
           Pesquisar
         </Button>
         <br />
@@ -132,6 +161,14 @@ function LogErrors() {
         <br />
         <ErrorsTable arrayErrors={errorList} />
       </Form>
+      {`Página ${currentPage + 1}`}
+      <br />
+      <Button onClick={handlePrevious} disabled={currentPage === 0}>
+        Anterior
+      </Button>
+      <Button onClick={handleNext} disabled={!existNextPage()}>
+        Próximo
+      </Button>
     </main>
   );
 }

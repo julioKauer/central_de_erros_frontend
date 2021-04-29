@@ -6,8 +6,8 @@ import LogErrors from './pages/LogErrors';
 function App() {
   return (
     <Switch>
-      <Route path="/login" component={Login} />
       <Route path="/logerrors" component={LogErrors} />
+      <Route path="/" component={Login} />
     </Switch>
   );
 }
