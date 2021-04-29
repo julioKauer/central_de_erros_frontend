@@ -15,6 +15,9 @@ function LogErrors() {
   const [text, setText] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [errorList, setErrorList] = useState([]);
+  const [sortBy, setSortBy] = useState('date');
+  const [size, setSize] = useState(3);
+  const [ascDesc, setAscDesc] = useState('desc');
 
   const Search = () => {
     const token = localStorage.getItem('token');
@@ -47,7 +50,7 @@ function LogErrors() {
     }
 
     //    fetch(`${url}errors${path}?page=0&size=3&sort=level,id`, requestOptions)
-    fetch(`${url}errors${path}`, requestOptions)
+    fetch(`${url}errors${path}?sort=${sortBy},${ascDesc}&page=0&size=${size}`, requestOptions)
       .then((response) => {
         if (response.status === 404) throw new Error('Não encontrado');
         return response.json();
@@ -79,7 +82,47 @@ function LogErrors() {
         {searchBy === 'level' && <SelectLevel level={level} setLevel={setLevel} /> }
         {searchBy === 'date' && <input type="date" value={date} onChange={({ target: { value } }) => setDate(value)} /> }
         {(searchBy === 'description' || searchBy === 'origin') && <input type="text" onChange={({ target: { value } }) => setText(value)} /> }
-        <Button onClick={() => Search()}>
+        <Form.Group controlId="">
+          <Form.Label>
+            Ordenação
+          </Form.Label>
+          <select
+            id="dropdown-basic-button"
+            className="btn btn-primary dropdown-toggle"
+            onChange={({ target: { value } }) => setSortBy(value)}
+            value={sortBy}
+          >
+            <option value="id">Id</option>
+            <option value="level">Tipo de erro</option>
+            <option value="date">Data</option>
+            <option value="origin">Origem</option>
+            <option value="description">Descrição</option>
+          </select>
+        </Form.Group>
+        <Form.Group controlId="">
+          <Form.Label>
+            Quantidade por página
+          </Form.Label>
+          <input
+            type="number"
+            min="1"
+            max="20"
+            value={size}
+            onChange={({ target: { value } }) => setSize(value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="">
+          <select
+            id="dropdown-basic-button"
+            className="btn btn-primary dropdown-toggle"
+            value={ascDesc}
+            onChange={({ target: { value } }) => setAscDesc(value)}
+          >
+            <option value="asc">Crescente</option>
+            <option value="desc">Decrescente</option>
+          </select>
+        </Form.Group>
+        <Button onClick={Search}>
           Pesquisar
         </Button>
         <br />
