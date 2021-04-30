@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 
 function ErrorsTable(props) {
@@ -18,7 +19,11 @@ function ErrorsTable(props) {
       <tbody>
         { arrayErrors.map((error) => (
           <tr key={error.id}>
-            <td>{error.id}</td>
+            <td>
+              <Link to={`/logerrors/${error.id}`}>
+                {error.id}
+              </Link>
+            </td>
             <td>{error.level}</td>
             <td>{error.description}</td>
             <td>{error.origin}</td>
