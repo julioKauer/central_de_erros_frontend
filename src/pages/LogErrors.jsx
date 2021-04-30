@@ -67,17 +67,6 @@ function LogErrors() {
     search(currentPage);
   }, [currentPage]);
 
-  /*
-  const [searchBy, setSearchBy] = useState('all');
-  const [level, setLevel] = useState('ERROR');
-  const [date, setDate] = useState('');
-  const [text, setText] = useState('');
-  const [quantity, setQuantity] = useState(0);
-  const [errorList, setErrorList] = useState([]);
-  const [sortBy, setSortBy] = useState('date');
-  const [size, setSize] = useState(3);
-  const [ascDesc, setAscDesc] = useState('desc'); */
-
   const existNextPage = () => {
     const lastPage = Math.ceil(quantity / size) - 1;
     if (currentPage < lastPage) return true;
