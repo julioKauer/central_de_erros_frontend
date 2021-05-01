@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-// import { useHistory } from 'react-router-dom';
+import { Table, Button } from 'react-bootstrap';
 
 const url = 'https://projeto-erros.herokuapp.com/';
 function LogErrorDetails(props) {
@@ -34,42 +32,48 @@ function LogErrorDetails(props) {
   }, []);
 
   const renderLogError = () => (
-    <main className="form__filters">
-      <Table striped bordered hover>
-        <tbody>
-          <tr>
-            <td>ID</td>
-            <td>{logError.id}</td>
-          </tr>
-          <tr>
-            <td>Nível de erro</td>
-            <td>{logError.level}</td>
-          </tr>
-          <tr>
-            <td>Descrição</td>
-            <td>{logError.description}</td>
-          </tr>
-          <tr>
-            <td>Origem</td>
-            <td>{logError.origin}</td>
-          </tr>
-          <tr>
-            <td>Data</td>
-            <td>{logError.date}</td>
-          </tr>
-          <tr>
-            <td>LOG do Evento</td>
-            <td>{logError.eventLog}</td>
-          </tr>
-        </tbody>
-      </Table>
-    </main>
+    <Table striped bordered hover>
+      <tbody>
+        <tr>
+          <td>ID</td>
+          <td>{logError.id}</td>
+        </tr>
+        <tr>
+          <td>Nível de erro</td>
+          <td>{logError.level}</td>
+        </tr>
+        <tr>
+          <td>Descrição</td>
+          <td>{logError.description}</td>
+        </tr>
+        <tr>
+          <td>Origem</td>
+          <td>{logError.origin}</td>
+        </tr>
+        <tr>
+          <td>Data</td>
+          <td>{logError.date}</td>
+        </tr>
+        <tr>
+          <td>LOG do Evento</td>
+          <td>{logError.eventLog}</td>
+        </tr>
+      </tbody>
+    </Table>
   );
 
   return (
-    <div>
+    <main className="wrapper">
       {logError && renderLogError()}
-    </div>
+      <Button
+        onClick={() => {
+          window.location.href = '/logerrors';
+        }}
+        className="buttonBack"
+      >
+        Voltar
+      </Button>
+    </main>
   );
 }
 
