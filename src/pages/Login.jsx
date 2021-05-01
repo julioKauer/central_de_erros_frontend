@@ -43,7 +43,7 @@ function Login() {
   };
 
   return (
-    <main className="wrapper">
+    <main>
       <Form className="form__login">
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>

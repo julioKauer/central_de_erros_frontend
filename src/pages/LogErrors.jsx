@@ -118,6 +118,17 @@ function LogErrors() {
           </select>
         </Form.Group>
         <Form.Group controlId="">
+          <select
+            id="dropdown-basic-button"
+            className="btn btn-primary dropdown-toggle"
+            value={ascDesc}
+            onChange={({ target: { value } }) => setAscDesc(value)}
+          >
+            <option value="asc">Crescente</option>
+            <option value="desc">Decrescente</option>
+          </select>
+        </Form.Group>
+        <Form.Group controlId="">
           <Form.Label>
             Quantidade por página
           </Form.Label>
@@ -129,33 +140,23 @@ function LogErrors() {
             onChange={({ target: { value } }) => setSize(value)}
           />
         </Form.Group>
-        <Form.Group controlId="">
-          <select
-            id="dropdown-basic-button"
-            className="btn btn-primary dropdown-toggle"
-            value={ascDesc}
-            onChange={({ target: { value } }) => setAscDesc(value)}
-          >
-            <option value="asc">Crescente</option>
-            <option value="desc">Decrescente</option>
-          </select>
-        </Form.Group>
-        <Button onClick={() => search(0)}>
-          Pesquisar
-        </Button>
-        <br />
-        Quantidade:
-        {' '}
-        {quantity}
-        <br />
-        <ErrorsTable arrayErrors={errorList} />
       </Form>
+      <Button onClick={() => search(0)}>
+        Pesquisar
+      </Button>
+      <br />
+      <br />
+      Quantidade:
+      {' '}
+      {quantity}
+      <br />
+      <ErrorsTable arrayErrors={errorList} />
       {`Página ${currentPage + 1}`}
       <br />
       <Button onClick={handlePrevious} disabled={currentPage === 0}>
         Anterior
       </Button>
-      <Button onClick={handleNext} disabled={!existNextPage()}>
+      <Button className="buttonNext" onClick={handleNext} disabled={!existNextPage()}>
         Próximo
       </Button>
     </main>

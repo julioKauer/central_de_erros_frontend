@@ -2,7 +2,7 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px; 
   box-shadow: 0 2px 4px rgb(0, 0, 0, 0.1);
-  margin: 15px auto;
+  margin: 150px auto;
   max-width: 400px;
   padding: 15px 30px;
   width: 90%;
@@ -13,12 +13,38 @@
   width: 100%;
 }
 
+.form__filters button, input {
+  height: 37px;
+}
+
+.form-label {
+  margin-right: 0.5em;
+}
+
 .form__filters {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+table {
+  margin-top: 0.5em;
+}
+
+.buttonNext {
+  margin-left: 0.5em;
+}
+
+.buttonBack {
+  margin: 0 auto;
+}
+
+.wrapper {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px; 
   box-shadow: 0 2px 4px rgb(0, 0, 0, 0.1);
   margin: 15px auto;
-  max-width: 1000px;
+  max-width: 990px;
   padding: 15px 30px;
   width: 90%;
 }
